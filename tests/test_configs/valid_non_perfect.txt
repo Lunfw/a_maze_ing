@@ -1,0 +1,7 @@
+# Non-perfect maze
+WIDTH=25
+HEIGHT=20
+ENTRY=0,0
+EXIT=24,19
+OUTPUT_FILE=non_perfect_maze.txt
+PERFECT=False

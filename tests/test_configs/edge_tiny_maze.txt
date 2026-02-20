@@ -1,0 +1,7 @@
+# Very small maze - should warn about "42" pattern
+WIDTH=3
+HEIGHT=3
+ENTRY=0,0
+EXIT=2,2
+OUTPUT_FILE=tiny_maze.txt
+PERFECT=True

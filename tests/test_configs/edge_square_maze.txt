@@ -1,0 +1,7 @@
+# Square maze
+WIDTH=20
+HEIGHT=20
+ENTRY=0,0
+EXIT=19,19
+OUTPUT_FILE=square_maze.txt
+PERFECT=True
