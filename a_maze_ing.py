@@ -1,9 +1,7 @@
 from src.parsing.ConfigLoader import ConfigLoader
 from src.logique.MazeGenerator import MazeGenerator
 from src.logique.Cell import Cell
-
 import sys
-
 from typing import Dict, Any
 
 
@@ -18,8 +16,14 @@ def main() -> None:
         Cell(config['WIDTH'], config['HEIGHT'])
         generator = MazeGenerator(config)
         generator.generate()
+        temp: list = []
+        for i in generator.grid:
+            for j in i:
+                temp.append((j.x, j.y))
+        print(f'\nCenter: {temp[int(len(temp) / 2)]}\n')
     except ValueError as e:
         print(f"Error: {e}")
 
 
-main()
+if (__name__ == "__main__"):
+    main()

@@ -9,7 +9,8 @@ WALL = "\033[107m  \033[0m"
 WHITE = "\033[0m"
 CELL = "  "
 PINK = "\033[105m"
-RED  = "\033[101m"
+RED = "\033[101m"
+GREEN = "\033[102m"
 
 
 class MazeGenerator:
@@ -30,7 +31,14 @@ class MazeGenerator:
         self.grid = [
             [Cell(x, y) for y in range(self.height)]
             for x in range(self.width)
-        ]
+            ]
+        self.center: tuple = (int(self.width / 2), int(self.height / 2))
+        if (self.width % 2):
+            temp: list[tuple] = []
+            for i in self.grid:
+                for j in i:
+                    temp.append((j.x, j.y))
+            self.center = temp[int(len(temp) / 2)]
 
     def generate(self) -> None:
         self.dfs(self.entry[0], self.entry[1])
@@ -45,6 +53,8 @@ class MazeGenerator:
                     east = WALL
                 else:
                     east = CELL
+                if (x, y) == self.center:
+                    line += GREEN + CELL + WHITE + east
                 if cell.has_wall(Cell.SOUTH):
                     south = WALL
                 else:
@@ -53,7 +63,7 @@ class MazeGenerator:
                     line += PINK + CELL + WHITE + east
                 elif (x, y) == (self.exit[0], self.exit[1]):
                     line += RED + CELL + WHITE + east
-                else: 
+                else:
                     line += CELL + east
                 bottom += south + WALL
             print(line)
