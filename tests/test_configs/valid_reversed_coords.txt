@@ -1,7 +1,0 @@
-# Exit before entry (position-wise)
-WIDTH=20
-HEIGHT=15
-ENTRY=19,14
-EXIT=0,0
-OUTPUT_FILE=reversed_maze.txt
-PERFECT=True

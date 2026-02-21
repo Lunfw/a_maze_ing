@@ -1,7 +1,0 @@
-# ENTRY x coordinate out of bounds
-WIDTH=20
-HEIGHT=15
-ENTRY=25,10
-EXIT=19,14
-OUTPUT_FILE=maze.txt
-PERFECT=True

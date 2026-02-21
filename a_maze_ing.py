@@ -24,6 +24,11 @@ def main() -> None:
     except ValueError as e:
         print(f"Error: {e}")
 
+    try:
+        print('Dijkstra function goes here soon')
+    except Exception as e:
+        print(f"Error: {e}")
+
 
 if (__name__ == "__main__"):
     main()

@@ -1,4 +1,0 @@
-# Multiple missing keys
-WIDTH=20
-ENTRY=0,0
-OUTPUT_FILE=maze.txt

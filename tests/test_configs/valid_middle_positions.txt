@@ -1,7 +1,0 @@
-# Entry and exit in the middle
-WIDTH=20
-HEIGHT=20
-ENTRY=5,5
-EXIT=15,15
-OUTPUT_FILE=middle_maze.txt
-PERFECT=True

@@ -1,7 +1,0 @@
-# ENTRY with single value
-WIDTH=20
-HEIGHT=15
-ENTRY=5
-EXIT=19,14
-OUTPUT_FILE=maze.txt
-PERFECT=True

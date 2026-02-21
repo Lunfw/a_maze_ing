@@ -1,3 +1,0 @@
-# This file only contains comments
-# No actual configuration
-# Should fail

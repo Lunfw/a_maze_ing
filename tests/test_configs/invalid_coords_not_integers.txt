@@ -1,7 +1,0 @@
-# Coordinates not integers
-WIDTH=20
-HEIGHT=15
-ENTRY=abc,def
-EXIT=19,14
-OUTPUT_FILE=maze.txt
-PERFECT=True
