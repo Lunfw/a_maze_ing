@@ -1,7 +1,6 @@
 from .Cell import Cell
-
 from typing import Dict, Any, Optional
-
+from time import sleep
 import random
 
 
@@ -53,19 +52,20 @@ class MazeGenerator:
                     east = WALL
                 else:
                     east = CELL
-                if (x, y) == self.center:
-                    line += GREEN + CELL + WHITE + east
                 if cell.has_wall(Cell.SOUTH):
                     south = WALL
                 else:
-                    south = CELL
-                if (x, y) == (self.entry[0], self.entry[1]):
+                    south = CELL 
+                if (x, y) == self.center:
+                    line += GREEN + CELL + WHITE + east
+                elif (x, y) == (self.entry[0], self.entry[1]):
                     line += PINK + CELL + WHITE + east
                 elif (x, y) == (self.exit[0], self.exit[1]):
                     line += RED + CELL + WHITE + east
                 else:
                     line += CELL + east
                 bottom += south + WALL
+                sleep(0.001)
             print(line)
             print(bottom)
 
