@@ -19,7 +19,8 @@ def main() -> None:
         Cell(config['WIDTH'], config['HEIGHT'])
         generator = MazeGenerator(config)
         generator.generate()
-        menu = Menu(generator)
+        menu = Menu(config, generator)
+        generator.save()
         while True:
             menu.display_menu()
     except ValueError as e:

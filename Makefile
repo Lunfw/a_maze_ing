@@ -1,5 +1,5 @@
 install:
-	pip install -r requirements.txt
+	pip install -r requirement.txt
 
 run:
 	python3 a_maze_ing.py config.txt

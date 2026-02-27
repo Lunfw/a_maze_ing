@@ -1,7 +1,7 @@
 from .Cell import Cell
 from .Color import Color
 
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 
 import random
 
@@ -10,7 +10,7 @@ class MazeGenerator:
     def __init__(
         self,
         config: Dict[str, Any],
-        seed: Optional[int] = None
+        seed: Optional[Union[int, str]] = None
     ) -> None:
         self.width: int = config['WIDTH']
         self.height: int = config['HEIGHT']
@@ -18,7 +18,7 @@ class MazeGenerator:
         self.exit: tuple[int, int] = config['EXIT']
         self.perfect: bool = config['PERFECT']
         self.output_file: str = config['OUTPUT_FILE']
-        self.seed: Optional[int] = seed
+        self.seed: Optional[Union[int, str]] = seed
         self.random_seed = random.Random(seed)
         self.grid = [
             [Cell(x, y) for y in range(self.height)]
@@ -52,9 +52,11 @@ class MazeGenerator:
         quatre = [
             (0, 0),
             (0, 1),
-            (0, 2), (1, 2), (2, 2),
-                            (2, 3),
-                            (2, 4),
+            (0, 2),
+            (1, 2),
+            (2, 2),
+            (2, 3),
+            (2, 4),
         ]
         deux = [
             (4, 0), (5, 0), (6, 0),
@@ -96,7 +98,25 @@ class MazeGenerator:
                 return self.wall_42
         return self.wall
 
+    def imperfect(self) -> None:
+        total = (
+            self.width * (self.height - 1)
+            + self.height * (self.width - 1)
+        )
+        count = int(total * 0.3)
+        for i in range(count):
+            x = self.random_seed.randint(0, self.width - 1)
+            y = self.random_seed.randint(0, self.height - 1)
+            dx, dy, wall_here, wall_neighbor = (
+                self.random_seed.choice(self.directions)
+            )
+            nx, ny = x + dx, y + dy
+            if self.position_check(nx, ny):
+                self.grid[x][y].remove_wall(wall_here)
+                self.grid[nx][ny].remove_wall(wall_neighbor)
+
     def generate(self) -> None:
+        self.random_seed = random.Random(self.seed)
         self.grid = [
             [Cell(x, y) for y in range(self.height)]
             for x in range(self.width)
@@ -110,6 +130,8 @@ class MazeGenerator:
                 if self.position_check(x, y):
                     self.grid[x][y].visited = True
         self.dfs(self.entry[0], self.entry[1])
+        if not self.perfect:
+            self.imperfect()
         if wall_42 is not None:
             for (x, y) in wall_42:
                 if self.position_check(x, y):
@@ -128,8 +150,14 @@ class MazeGenerator:
                 cell_42 = wall_42 is not None and (x,   y) in wall_42
                 cell_east_42 = wall_42 is not None and (x+1, y) in wall_42
                 cell_south_42 = wall_42 is not None and (x, y+1) in wall_42
-                east = self.wall if cell.has_wall(Cell.EAST) else self.cell
-                south = self.wall if cell.has_wall(Cell.SOUTH) else self.cell
+                if cell.has_wall(Cell.EAST):
+                    east = self.wall
+                else:
+                    east = self.cell
+                if cell.has_wall(Cell.SOUTH):
+                    south = self.wall
+                else:
+                    south = self.cell
                 if cell_42 or cell_east_42:
                     if cell_42 and cell_east_42:
                         east = self.fill_42
@@ -160,3 +188,14 @@ class MazeGenerator:
                 self.grid[x][y].remove_wall(wall_here)
                 self.grid[nx][ny].remove_wall(wall_neighbor)
                 self.dfs(nx, ny)
+
+    def save(self) -> None:
+        with open(self.output_file, 'w') as f:
+            for y in range(self.height):
+                for x in range(self.width):
+                    f.write(format(self.grid[x][y].walls, 'x'))
+                f.write("\n")
+            f.write("\n")
+            f.write(f"{self.entry[0]},{self.entry[1]}\n")
+            f.write(f"{self.exit[0]},{self.exit[1]}\n")
+            #f.write(self.function_solve() + "\n")
