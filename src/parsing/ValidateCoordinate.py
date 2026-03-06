@@ -14,10 +14,10 @@ class ValidateCoordinate(MazeConfig):
             y: int
             x, y = config[i]
             if x < 0 or y < 0:
-                raise ValueError(f"{i} coordinates")
+                raise ValueError(f"{i} negative value !")
             if x >= width:
-                raise ValueError(f"{i} x={x} is")
+                raise ValueError(f"{i} x = {x} more than WIDTH")
             if y >= height:
-                raise ValueError(f"{i} y={y} is")
+                raise ValueError(f"{i} y = {y} more than HEIGHT")
         if config['ENTRY'] == config['EXIT']:
             raise ValueError("ENTRY and EXIT must be different positions")

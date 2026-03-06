@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: mazegen-nocurely-frasomal
+Version: 1.0.0
+Summary: A maze generator
+Requires-Python: >=3.10
+Requires-Dist: pyfiglet

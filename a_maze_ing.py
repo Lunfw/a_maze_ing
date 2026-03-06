@@ -1,10 +1,9 @@
 from src.parsing.ConfigLoader import ConfigLoader
-from src.logique.MazeGenerator import MazeGenerator
-from src.logique.Cell import Cell
-from src.logique.Menu import Menu
+from src.mazegen.MazeGenerator import MazeGenerator
+from src.mazegen.Menu import Menu
+
 
 import sys
-
 from typing import Dict, Any
 
 
@@ -16,9 +15,10 @@ def main() -> None:
         config_file: str = sys.argv[1]
         loader = ConfigLoader()
         config: Dict[str, Any] = loader.load(config_file)
-        Cell(config['WIDTH'], config['HEIGHT'])
         generator = MazeGenerator(config)
         generator.generate()
+        generator.bfs()
+        generator.display()
         menu = Menu(config, generator)
         generator.save()
         while True:

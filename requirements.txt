@@ -1,1 +1,1 @@
-pip install mlx_CLXV/python/dist/mlx-2.2-py3-none-any.whl
+pyfiglet

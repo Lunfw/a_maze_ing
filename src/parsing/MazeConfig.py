@@ -52,7 +52,7 @@ class MazeConfig(ABC):
     ) -> Tuple[str, str]:
         """Extract and validate key and value from line."""
         key, value_str = line.split('=', 1)
-        key = key.strip()
+        key = key.strip().upper()
         value_str = value_str.strip()
         if not key:
             raise ValueError(f"Line {line_number}: Empty key")
